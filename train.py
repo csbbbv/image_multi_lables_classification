@@ -23,6 +23,13 @@ from metrics import  *
 
 
 
+torch.manual_seed(2020)
+torch.cuda.manual_seed(2020)
+np.random.seed(2020)
+random.seed(2020)
+torch.backends.cudnn.deterministic = True
+
+
 # 初始化训练参数
 num_workers = 8  # Number of CPU processes for data preprocessing
 lr = 1e-4  # Learning rate

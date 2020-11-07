@@ -4,6 +4,7 @@ image_dir = 'D:\\pycharm\\data\\clothes\\image\\'
 dataset_save_dir = 'D:\\pycharm\\data\\new_clothes\\'
 new_label = 'D:\\pycharm\\data\\new_label\\'
 
+label = ['short sleeve top','shorts','trousers','long sleeve top','unsure']
 labels = {  0:'short sleeve top',
             1:'shorts',
             2:'trousers',

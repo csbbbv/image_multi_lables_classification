@@ -1,0 +1,12 @@
+{
+  "samples": [
+    {
+      "image_name": "123940_1158315062_02a15f03aa_m.jpg",
+      "image_labels": [
+        "person",
+        "street",
+        "window"
+      ]
+    }
+  ]
+}

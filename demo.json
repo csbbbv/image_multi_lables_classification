@@ -1,0 +1,18 @@
+ {
+   "objects": [
+      {
+           "xmin": 320,
+           "ymin": 430,
+           "xmax": 500,
+           "ymax": 700,
+           "class": ["s_sleeve", "shorts"]
+      },
+      {
+           "xmin": 320,
+           "ymin": 430,
+           "xmax": 500,
+           "ymax": 700,
+           "class": ["unsure"]
+      }
+  ]
+}

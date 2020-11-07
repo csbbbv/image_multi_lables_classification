@@ -20,7 +20,7 @@ import json
 from shutil import copyfile
 from model.ResNet50 import *
 from metrics import  *
-
+from config import *
 
 
 torch.manual_seed(2020)
@@ -29,25 +29,9 @@ np.random.seed(2020)
 random.seed(2020)
 torch.backends.cudnn.deterministic = True
 
-
-# 初始化训练参数
-num_workers = 8  # Number of CPU processes for data preprocessing
-lr = 1e-4  # Learning rate
-batch_size = 32
-save_freq = 1  # Save checkpoint frequency (epochs)
-test_freq = 200  # Test model frequency (iterations)
-max_epoch_number = 35  # Number of epochs for training
-# Note: on the small subset of data overfitting happens after 30-35 epochs
-
-mean = [0.485, 0.456, 0.406]
-std = [0.229, 0.224, 0.225]
-
 device = torch.device('cuda')
 # Save path for checkpoints
-save_path = 'chekpoints/'
-# Save path for logs
-logdir = 'logs/'
-img_folder = ''
+
 
 # 辅助函数，断点保存
 def checkpoint_save(model, save_path, epoch):

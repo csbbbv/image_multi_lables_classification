@@ -1,6 +1,7 @@
 import os
 import json
 from config import *
+
 '''
     短袖：short sleeve top
     短裤：shorts
@@ -8,6 +9,7 @@ from config import *
     长袖：long sleeve top
 
 '''
+
 sst,s,t,lst = 0,0,0,0
 json_list = os.listdir(json_dir)
 for file in json_list:
@@ -38,3 +40,4 @@ trousers : 53725
 long sleeve top : 35430
 
 '''
+

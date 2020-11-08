@@ -12,7 +12,7 @@ labels = {  0:'short sleeve top',
 save_path = 'chekpoints/'
 # Save path for logs
 logdir = 'logs/'
-img_folder = ''
+img_folder = '/home/forest/workspace/image_multi_lables_classification/clothes/train/image'
 
 mean = [0.485, 0.456, 0.406]
 std = [0.229, 0.224, 0.225]

@@ -21,7 +21,7 @@ from shutil import copyfile
 from model.ResNet50 import *
 from metrics import  *
 from config import *
-
+# from data import NusDataset
 
 torch.manual_seed(2020)
 torch.cuda.manual_seed(2020)
@@ -68,9 +68,51 @@ train_transform = transforms.Compose([
     transforms.Normalize(mean, std)
 ])
 
+# Simple dataloader and label binarization, that is converting test labels into binary arrays of length 27 (number of classes) with 1 in places of applicable labels).
+class NusDataset(Dataset):
+    def __init__(self, data_path, anno_path, transforms):
+        self.transforms = transforms
+        with open(anno_path) as fp:
+            json_data = json.load(fp)
+        samples = json_data['samples']
+        self.classes = json_data['labels']
+
+        self.imgs = []
+        self.annos = []
+        self.data_path = data_path
+        print('loading', anno_path)
+        for sample in samples:
+            self.imgs.append(sample['image_name'])
+            self.annos.append(sample['image_labels'])
+        for item_id in range(len(self.annos)):
+            item = self.annos[item_id]
+            vector = [cls in item for cls in self.classes]
+            self.annos[item_id] = np.array(vector, dtype=float)
+
+    def __getitem__(self, item):
+        anno = self.annos[item]
+        img_path = os.path.join(self.data_path, self.imgs[item])
+        img = Image.open(img_path)
+        if self.transforms is not None:
+            img = self.transforms(img)
+        return img, anno
+
+    def __len__(self):
+        return len(self.imgs)
+
+#
+# # A simple function for visualization.
+# def show_sample(img, binary_img_labels):
+#     # Convert the binary labels back to the text representation.
+#     img_labels = np.array(dataset_val.classes)[np.argwhere(binary_img_labels > 0)[:, 0]]
+#     plt.imshow(img)
+#     plt.title("{}".format(', '.join(img_labels)))
+#     plt.axis('off')
+#     plt.show()
+
 # Initialize the dataloaders for training.
-test_annotations = os.path.join(img_folder, 'small_test.json')
-train_annotations = os.path.join(img_folder, 'small_train.json')
+test_annotations = os.path.join(img_folder, 'test.json')
+train_annotations = os.path.join(img_folder, 'train.json')
 
 test_dataset = NusDataset(img_folder, test_annotations, val_transform)
 train_dataset = NusDataset(img_folder, train_annotations, train_transform)

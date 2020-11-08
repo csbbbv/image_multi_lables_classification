@@ -17,10 +17,11 @@ import requests
 import tarfile
 import random
 import json
+from config import  *
 from shutil import copyfile
 
 # Let's download and extract it.
-img_folder = 'D:\\pycharm\\image_multi_lables_classification\\json_utils'
+
 
 
 
@@ -55,9 +56,7 @@ class NusDataset(Dataset):
 
     def __len__(self):
         return len(self.imgs)
-# Let's take a look at the data we have. To do it we need to load the dataset without augmentations.
-dataset_val = NusDataset(img_folder, os.path.join(img_folder, 'small_test.json'), None)
-dataset_train = NusDataset(img_folder, os.path.join(img_folder, 'small_train.json'), None)
+
 
 # A simple function for visualization.
 def show_sample(img, binary_img_labels):
@@ -66,21 +65,4 @@ def show_sample(img, binary_img_labels):
     plt.imshow(img)
     plt.title("{}".format(', '.join(img_labels)))
     plt.axis('off')
-    plt.show()
-
-for sample_id in range(5):
-    show_sample(*dataset_val[sample_id])
-# Calculate label distribution for the entire dataset (train + test)
-samples = dataset_val.annos + dataset_train.annos
-samples = np.array(samples)
-with printoptions(precision=3, suppress=True):
-    class_counts = np.sum(samples, axis=0)
-    # Sort labels according to their frequency in the dataset.
-    sorted_ids = np.array([i[0] for i in sorted(enumerate(class_counts), key=lambda x: x[1])], dtype=int)
-    print('Label distribution (count, class name):', list(zip(class_counts[sorted_ids].astype(int), np.array(dataset_val.classes)[sorted_ids])))
-    plt.barh(range(len(dataset_val.classes)), width=class_counts[sorted_ids])
-    plt.yticks(range(len(dataset_val.classes)), np.array(dataset_val.classes)[sorted_ids])
-    plt.gca().margins(y=0)
-    plt.grid()
-    plt.title('Label distribution')
     plt.show()

@@ -4,7 +4,7 @@ from config import *
 json_dir = 'D:\\pycharm\\data\\test\\anno'
 json_files = os.listdir(json_dir)
 
-with open('test.json', 'w') as fp:
+with open('../clothes/train/image/test.json', 'w') as fp:
     fp.write('{"samples":[')
     for file in json_files:
         fp.write('{"image_name":'+'"'+file[0:file.index('.')]+'.jpg","image_labels":[')
